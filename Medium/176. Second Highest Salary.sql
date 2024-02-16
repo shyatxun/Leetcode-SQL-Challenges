@@ -6,3 +6,6 @@ select case when count(distinct salary) < 2 then null else (select distinct sala
 # option 2 384ms
 select max(distinct salary) as SecondHighestSalary from Employee
 where salary < (select max(salary) from Employee)
+
+# option 3 375ms
+select ifnull((select distinct salary from Employee order by salary desc limit 1 offset 1), null) as SecondHighestSalary
